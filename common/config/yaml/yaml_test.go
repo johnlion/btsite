@@ -18,7 +18,8 @@ import (
 	"fmt"
 	"os"
 	"testing"
-	"github.com/johnlion/btsite/config"
+
+	"github.com/johnlion/btsite/common/config"
 )
 
 func TestYaml(t *testing.T) {
