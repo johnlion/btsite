@@ -38,7 +38,7 @@ func ( this *Base ) GetTotalTime()  string{
 
 
 func ( this *Base ) Print( i interface{} ) {
-	fmt.Printf("\x1b[33;1m%s%v\n\n\n", " ", i)
+	fmt.Printf("\x1b[32;1m%s%v\n\n\n", " ", i)
 }
 
 /*********************************************************

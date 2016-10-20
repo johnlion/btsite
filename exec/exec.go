@@ -6,8 +6,10 @@ import (
 	"github.com/johnlion/btsite/core"
 	"github.com/johnlion/btsite/runtime/cache"
 	"github.com/johnlion/btsite/runtime/status"
+	"github.com/johnlion/btsite/core/web"
 	"flag"
 	"strconv"
+
 )
 
 var (
@@ -41,14 +43,21 @@ func DefaultRun( uiDefault string ) {
 	baseController.Print( config.FULL_NAME )
 	baseController.Print( status.LOG )
 
-
-
-
+	flag.String("a *********************************************** common *********************************************** -a", "", "" )
 	// 操作界面
 	uiflag = flag.String("_ui", uiDefault, "   <选择操作界面> [web] [gui] [cmd]")
-	flag_common()
-	flag.Parse()
-	baseController.Print( *uiflag )
+
+
+
+	//flag_common()
+	web.Flag()
+	//flag.Parse()
+	//writeFlag()
+
+
+
+
+
 	baseController.SetTime2()
 
 	baseController.Print(  baseController.GetTotalTime() )
@@ -137,4 +146,17 @@ func flag_common(){
 }
 
 
-
+func writeFlag(){
+	cache.Task.Mode = *modeflag
+	cache.Task.Port = *portflag
+	cache.Task.Master = *masterflag
+	cache.Task.Keyins = *keyinsflag
+	cache.Task.Limit = *limitflag
+	cache.Task.OutType = *outputflag
+	cache.Task.ThreadNum = *threadflag
+	cache.Task.PauseTime = *pauseflag
+	cache.Task.ProxyMinute = *proxyflag
+	cache.Task.DockerCap = *dockerflag
+	cache.Task.SuccessInherit = *successInheritflag
+	cache.Task.FailureInherit = *failureInheritflag
+}
