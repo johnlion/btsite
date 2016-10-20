@@ -3,28 +3,48 @@ package core
 import (
 	"fmt"
 	"strconv"
+	"time"
 )
 
 type Base struct {
 	Name string
-	data map[string] interface{}
+	Data map[string] interface{}
+	time1 float64                                        //启动时的时间
+	time2 float64                                         //执行结束的时间
+	totalTime float64                                    //总消耗的时间
 }
 
 func  ( this *Base ) GetName(){
 	fmt.Printf( this.Name )
 }
 
+func ( this *Base ) SetTime1(){
+	this.time1 =float64( time.Now().UnixNano() )
+}
+
+func ( this *Base ) SetTime2(){
+	this.time2 =  float64( time.Now().UnixNano() )
+}
+
+func ( this *Base ) SetTotalTime(){
+	this.totalTime = ( this.time2 -  this.time1 ) /1000000
+}
+
+func ( this *Base ) GetTotalTime()  string{
+	this.SetTotalTime()
+	result :="Time:" + string( fmt.Sprintf( "%.4f", this.totalTime )) + "s"
+	return result
+}
+
 
 func ( this *Base ) Print( i interface{} ) {
-	this.print_line_color_str(31, 40)
-	fmt.Printf("\x1b[37;1m%s%v\n\n\n", " ", i)
-	this.print_line_color_str(31, 40)
+	fmt.Printf("\x1b[33;1m%s%v\n\n\n", " ", i)
 }
 
 /*********************************************************
  * 输出色彩分隔行
  *********************************************************/
-func ( this *Base ) print_line_color_str( frontcolor int, backgroundcolor int ) {
+func ( this *Base ) Print_line_color_str( frontcolor int, backgroundcolor int ) {
 	// frontcolor , backgroundcolor
 	// 前景 背景 颜色
 	// ---------------------------------------
@@ -53,7 +73,16 @@ func ( this *Base ) print_line_color_str( frontcolor int, backgroundcolor int ) 
  * 输出json data
  *********************************************************/
 func (this *Base ) Print_data_json ( m map[string] interface{} ){
-	this.print_line_color_str(31, 40)
+	//Example:
+	//numbers := make( map[string] interface{} )
+	//numbers["one"] =1
+	//numbers["two"] =2.03
+	//numbers["three"] ="hello"
+	//numbers["four"] =4
+	//numbers["five"] =5
+	//baseController.Print_data_json( numbers )
+
+	this.Print_line_color_str(31, 40)
 	for k, v := range m {
 		switch vv := v.(type) {
 			case string:
@@ -73,7 +102,6 @@ func (this *Base ) Print_data_json ( m map[string] interface{} ){
 				fmt.Println( " ",k, "is of type I don't know how to handle", fmt.Sprintf( "%T", v ) )
 		}
 	}
-	this.print_line_color_str(31, 40)
+	this.Print_line_color_str(31, 40)
 }
-
 
