@@ -41,6 +41,7 @@ var colors = []Brush{
 	NewBrush("1;32"), // Notice			green
 	NewBrush("1;34"), // Informational	blue
 	NewBrush("1;34"), // Debug      blue
+	NewBrush("1;34"), // App        blue
 }
 
 // ConsoleWriter implements LoggerInterface and writes messages to terminal.

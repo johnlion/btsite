@@ -49,7 +49,6 @@ import (
 // RFC5424 log message levels.
 const (
 	LevelNothing = iota - 1
-	LevelApp     // only for pholcus
 	LevelEmergency
 	LevelAlert
 	LevelCritical
@@ -58,6 +57,7 @@ const (
 	LevelNotice
 	LevelInformational
 	LevelDebug
+	LevelApp     // only for btsite App
 )
 
 type loggerType func() LoggerInterface
@@ -197,7 +197,10 @@ func (bl *BeeLogger) writerMsg(loglevel int, msg string) error {
 	if bl.asynchronous {
 		bl.msg <- lm
 	} else {
+
 		bl.lock.RLock()
+
+
 		defer bl.lock.RUnlock()
 		for name, l := range bl.outputs {
 			err := l.WriteMsg(lm.msg, lm.level)

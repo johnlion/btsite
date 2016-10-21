@@ -61,7 +61,7 @@ func TestFile2(t *testing.T) {
 	log := NewLogger(10000)
 	log.SetLogger("file", map[string]interface{}{"filename": "test2.log", "level": LevelError})
 	log.Debug("debug")
-	log.Informational("info")
+	log.Info("info")
 	log.Notice("notice")
 	log.Warning("warning")
 	log.Error("error")
