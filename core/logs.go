@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 	"github.com/johnlion/btsite/config"
-	"github.com/johnlion/btsite/common/logs/logs"
+	"github.com/johnlion/btsite/common/logs"
 
 )
 
