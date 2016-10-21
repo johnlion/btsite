@@ -3,7 +3,7 @@ package goyaml2
 import (
 	"bufio"
 	"fmt"
-	"github.com/wendal/errors"
+	"github.com/johnlion/btsite/common/errors"
 	"io"
 	"log"
 	"strings"
