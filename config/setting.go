@@ -1,3 +1,6 @@
+// 程序全局设置
+// 初始化程序配置inc
+
 package config
 
 import (
@@ -18,7 +21,7 @@ const (
 	logfeedbacklevel      string = "error"                     // 客户端反馈至服务端的日志级别
 	loglineinfo           bool   = false                       // 日志是否打印行信息
 	logsave               bool   = true                        // 是否保存所有日志到本地文件
-	phantomjs             string = WORK_ROOT + "/phantomjs"    // phantomjs文件路径
+	sydjs             string = WORK_ROOT + "/sydjs"            // sydjs
 	proxylib              string = WORK_ROOT + "/proxy.lib"    // 代理ip文件路径
 	spiderdir             string = WORK_ROOT + "/spiders"      // 动态规则目录
 	dbname                string = TAG                         // 数据库名称
@@ -74,7 +77,7 @@ func defaultConfig( iniconf config.Configer ){
 	iniconf.Set("log::feedbacklevel", logfeedbacklevel)
 	iniconf.Set("log::lineinfo", fmt.Sprint(loglineinfo))
 	iniconf.Set("log::save", fmt.Sprint(logsave))
-	iniconf.Set("js", phantomjs)
+	iniconf.Set("js", sydjs )
 	iniconf.Set("proxylib", proxylib)
 	iniconf.Set("spiderdir", spiderdir)
 	iniconf.Set("dbname", dbname)
@@ -120,8 +123,8 @@ func trySet( iniconf config.Configer ){
 	if _, e := iniconf.Bool("log::save"); e != nil {
 		iniconf.Set("log::save", fmt.Sprint(logsave))
 	}
-	if v := iniconf.String("phantomjs"); v == "" {
-		iniconf.Set("phantomjs", phantomjs)
+	if v := iniconf.String("sydjs"); v == "" {
+		iniconf.Set("phantomjs", sydjs)
 	}
 	if v := iniconf.String("proxylib"); v == "" {
 		iniconf.Set("proxylib", proxylib)
@@ -194,7 +197,3 @@ func logLevel2(l string, g string) string {
 	return g
 }
 
-
-func logLevel( l string ) string {
-	return l
-}
