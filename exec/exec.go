@@ -3,10 +3,11 @@ package exec
 import (
 	"runtime"
 	"github.com/johnlion/btsite/config"
-	"github.com/johnlion/btsite/core"
 	"github.com/johnlion/btsite/runtime/cache"
 	"github.com/johnlion/btsite/runtime/status"
+	"github.com/johnlion/btsite/core"
 	"github.com/johnlion/btsite/core/web"
+	"github.com/johnlion/btsite/cmd"
 	"flag"
 	"strconv"
 
@@ -46,13 +47,12 @@ func DefaultRun( uiDefault string ) {
 	flag.String("a *********************************************** common *********************************************** -a", "", "" )
 	// 操作界面
 	uiflag = flag.String("_ui", uiDefault, "   <选择操作界面> [web] [gui] [cmd]")
-
-
-
-	//flag_common()
+	flag_common()
 	web.Flag()
-	//flag.Parse()
-	//writeFlag()
+	cmd.Flag()
+	flag.String("z", "", "README:   参数设置参考 [xxx] 提示，参数中包含多个值时以 \",\" 间隔。\r\n")
+	flag.Parse()
+	writeFlag()
 
 
 
@@ -152,7 +152,7 @@ func writeFlag(){
 	cache.Task.Master = *masterflag
 	cache.Task.Keyins = *keyinsflag
 	cache.Task.Limit = *limitflag
-	cache.Task.OutType = *outputflag
+	// cache.Task.OutType = *outputflag
 	cache.Task.ThreadNum = *threadflag
 	cache.Task.PauseTime = *pauseflag
 	cache.Task.ProxyMinute = *proxyflag
