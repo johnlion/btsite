@@ -20,6 +20,7 @@ import(
 	"strconv"
 	"time"
 	"unsafe"
+	"encoding/xml"
 )
 
 const(
