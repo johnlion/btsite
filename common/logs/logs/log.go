@@ -141,6 +141,7 @@ func (bl *BeeLogger) Async(enable bool) *BeeLogger {
 }
 
 // SetLogger provides a given logger adapter into BeeLogger with config string.
+// adaptername = file | console
 func (bl *BeeLogger) SetLogger(adaptername string, config map[string]interface{}) error {
 	bl.lock.Lock()
 	defer bl.lock.Unlock()

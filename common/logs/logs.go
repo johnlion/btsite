@@ -6,6 +6,7 @@ import (
 	"path"
 	"github.com/johnlion/btsite/config"
 	"os"
+	"fmt"
 )
 
 type(
@@ -43,13 +44,46 @@ type(
 )
 
 
+func ( this *mylog ) SetOutput( show io.Writer ) Logs{
+	this.BeeLogger.SetLogger("console", map[string]interface{}{
+		"writer": show,
+		"level": config.LOG_CONSOLE_LEVEL,
+	})
+	return this
+}
+
 var Log = func() Logs{
 	p, _ := path.Split( config.LOG )
 	//　不存在目录时分创建目录
 	d , err := os.Stat(p)
 	if err != nil || d.IsDir(){
 		if err := os.MkdirAll( p, 0777 ); err != nil{
-			 Log.Error( "Error:　%v\n", err )
+			// mylog.Error( "Error:  %v\n", err )
 		}
 	}
-}
+	ml := &mylog{
+		BeeLogger:logs.NewLogger( config.LOG_CAP, config.LOG_FEEDBACK_LEVEL  ),
+	}
+	// 是否打印行信息
+	ml.BeeLogger.EnableFuncCallDepth(  config.LOG_LINEINFO )
+	//　全局日志打印级别　(亦是日志文件输出级别)
+	ml.BeeLogger.SetLevel( config.LOG_LEVEL )
+	// 是否异步输出日志
+	ml.BeeLogger.Async(config.LOG_ASYNC)
+	// 设置日志显示位置
+	ml.BeeLogger.SetLogger("console", map[string]interface{}{
+		"level": config.LOG,
+	} )
+
+	// 是否保存所有日志到本地文件
+	if config.LOG_SAVE{
+		err = ml.BeeLogger.SetLogger( "file", map[string]interface{}{
+			"filename":config.LOG,
+		})
+		if err != nil{
+			fmt.Printf("日志文档创建失败：%v", err)
+		}
+	}
+	return ml
+}()
+
