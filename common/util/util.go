@@ -1,3 +1,5 @@
+//  常用工具包
+
 package util
 import(
 	"crypto/md5"
